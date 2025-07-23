@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/ui/button";
 import {
     Card,
     CardContent,
@@ -6,59 +6,60 @@ import {
     CardFooter,
     CardHeader,
     CardTitle,
-} from "@/components/ui/card"
-import type { IBook } from "@/types"
+} from "@/components/ui/card";
+import type { IBook } from "@/types";
 import { Edit2, Trash2 } from "lucide-react";
 
 interface BookCardProps {
-    book: IBook
+    book: IBook;
 }
 
 export function BookCard({ book }: BookCardProps) {
-    console.log(book);
-
     return (
-        <Card className="w-full  shadow-lg border rounded-xl">
+        <Card className="w-full max-w-sm shadow-lg border rounded-xl hover:shadow-xl transition">
             <CardHeader>
-                <CardTitle className="text-xl font-bold">
-                    The Theory of Everything
-                </CardTitle>
-                <CardDescription>
-                    by Stephen Hawking
+                <CardTitle className="text-xl font-bold">{book.title}</CardTitle>
+                <CardDescription className="text-sm text-muted-foreground">
+                    by {book.author || "Unknown Author"}
                 </CardDescription>
             </CardHeader>
 
             <CardContent className="space-y-2">
                 <p className="text-sm text-muted-foreground">
-                    Genre: <span className="font-medium">SCIENCE</span>
+                    <span className="font-semibold">Genre:</span> {book.genre}
                 </p>
                 <p className="text-sm text-muted-foreground">
-                    ISBN: <span className="font-mono">9780553380163</span>
+                    <span className="font-semibold">ISBN:</span>{" "}
+                    <span className="font-mono">{book.isbn}</span>
                 </p>
+                <p className="text-sm">{book.description || "No description available."}</p>
                 <p className="text-sm">
-                    An overview of cosmology and black holes.
+                    <span className="font-semibold">Copies Available:</span>{" "}
+                    {book.copies}
                 </p>
-                <p className="text-sm">
-                    Copies Available: <span className="font-semibold">{1}</span>
+                <p
+                    className={`text-sm font-semibold ${book.available ? "text-green-600" : "text-red-600"
+                        }`}
+                >
+                    {book.available ? "Available" : "Not Available"}
                 </p>
-                {/* <p className={`text-sm font-semibold ${true ? "text-green-600" : "text-red-600"}`}>
-                    {true ? "Available" : "Not Available"}
-                </p> */}
             </CardContent>
 
-            <CardFooter className="flex justify-between gap-2 px-4 pb-4">
-                <Button variant="outline">
+            <CardFooter className="flex flex-wrap justify-between items-center gap-2 px-4 pb-4">
+                <Button variant="outline" className="flex items-center gap-1">
                     <Edit2 className="h-4 w-4" />
                     Edit
                 </Button>
-                <Button variant="destructive">
+
+                <Button variant="destructive" className="flex items-center gap-1">
                     <Trash2 className="h-4 w-4" />
                     Delete
                 </Button>
-                <Button>
+
+                <Button disabled={!book.available} className="flex-grow">
                     Borrow Book
                 </Button>
             </CardFooter>
         </Card>
-    )
+    );
 }
