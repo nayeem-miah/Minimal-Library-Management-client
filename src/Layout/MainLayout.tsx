@@ -1,13 +1,15 @@
 import { Outlet } from "react-router"
+import Navbar from "./Navbar"
+import Footer from "./Footer"
 
 function MainLayout() {
     return (
         <div>
             {/* navbar */}
-            <p>navbar</p>
+            <Navbar />
             <Outlet />
             {/* footer */}
-            <p>footer</p>
+            <Footer />
         </div>
     )
 }
