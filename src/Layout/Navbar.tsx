@@ -2,7 +2,6 @@ import { useState } from "react";
 import { CiMenuFries } from "react-icons/ci";
 import { NavLink } from "react-router";
 import { ModeToggle } from "@/components/ui/mode-toggle";
-import logo from "../assets/logo.jpg";
 
 function Navbar() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -21,11 +20,7 @@ function Navbar() {
         <nav className="flex items-center justify-between w-full p-2 sticky top-0 z-50 bg-white border-b dark:bg-black shadow">
             {/* Logo */}
             <NavLink to="/">
-                <img
-                    src={logo}
-                    alt="Library Logo"
-                    className="h-16 w-20 dark:invert"
-                />
+                <p className="text-3xl p-2">📚 <span className="text-pink-600 font-semibold ">library</span></p>
             </NavLink>
 
             {/* Desktop Menu */}
