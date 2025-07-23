@@ -13,9 +13,9 @@ function Navbar() {
     };
 
     const navLinkStyle =
-        "transition font-medium capitalize px-2 py-1 hover:border-b-purple-500 hover:border-b-2";
+        "transition font-medium capitalize px-2 py-1 ";
     const activeStyle =
-        " border-b-2 border-purple-500";
+        " border-b-2 border-pink-600";
 
     return (
         <nav className="flex items-center justify-between w-full p-2 sticky top-0 z-50 bg-white border-b dark:bg-black shadow">
@@ -29,7 +29,7 @@ function Navbar() {
             </NavLink>
 
             {/* Desktop Menu */}
-            <ul className="hidden md:flex items-center gap-6 text-base bg-white border-b dark:bg-black shadow]">
+            <ul className="hidden md:flex items-center gap-6 text-base bg-white z dark:bg-black shadow]">
                 <NavLink
                     to="/"
                     className={({ isActive }) =>
