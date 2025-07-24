@@ -9,8 +9,24 @@ function AllBooks() {
     const { data, isLoading, isError } = useGetBooksQuery(undefined);
     console.log(data);
     // console.log({ data, isLoading, isError });
-    if (isLoading) return <div>Loading...</div>;
-    if (isError) return <div>Error loading books</div>;
+
+    if (isLoading) {
+        return (
+            <div className="flex items-center justify-center h-screen">
+                <div className="w-7 h-7 animate-[ping_2s_linear_infinite] rounded-full border-2 order-[#fa2e9b]] flex items-center justify-center">
+                    <div className="w-5 h-5 animate-[ping_2s_linear_3s_infinite] rounded-full border-2 border-[#fa2e9b]"></div>
+                </div>
+            </div>
+        )
+    }
+
+    if (isError) {
+        return (
+            <div className="flex items-center justify-center h-screen">
+                <h3 className="text-red-500 text-2xl">Error fetching books</h3>
+            </div>
+        )
+    }
     return (
         <div>
             <div>
@@ -20,7 +36,7 @@ function AllBooks() {
                     {
                         !isLoading && !isError && data?.data?.length > 0 ? (
                             data.data.map((book: IBook) => (
-                                <BookCard book={book} />
+                                <BookCard key={book._id} book={book} />
                             ))
                         ) : <div className="flex flex-col items-center justify-center mx-auto max-w-4xl">
                             <h3 className="text-red-400 text-2xl text-center">No books available</h3>
