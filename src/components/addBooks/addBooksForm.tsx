@@ -56,12 +56,13 @@ const AddBooksForm = () => {
                 form.reset();
             }
         } catch (error) {
-            console.log(error);
+            console.error("Error adding book:", error);
             toast.error(`$ something is wrong ❌`, {
                 duration: 3000,
                 position: "top-right",
             });
         }
+        form.reset();
     };
 
     if (isLoading) return <Loader />;
@@ -71,7 +72,7 @@ const AddBooksForm = () => {
             <DialogTrigger asChild>
                 <Button
                     variant="secondary"
-                    className="w-full bg-pink-500 hover:bg-pink-600 text-white"
+                    className=" bg-pink-500 hover:bg-pink-600 text-white"
                 >
                     <CgAdd className="h-4 w-4 mr-1" />
                     Add Book
@@ -180,7 +181,7 @@ const AddBooksForm = () => {
                             )}
                         />
 
-                        <Button type="submit" className="w-full">
+                        <Button type="submit" className="w-full bg-pink-500 hover:bg-pink-600 text-white">
                             Submit
                         </Button>
                     </form>
