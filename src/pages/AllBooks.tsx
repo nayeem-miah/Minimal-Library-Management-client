@@ -43,7 +43,7 @@ function AllBooks() {
     return (
         <div>
             <div>
-                <div className="flex justify-between mb-8">
+                <div className="flex justify-between mb-8 mt-1">
                     <h3 className="text-2xl font-semibold">Show all books</h3>
                     {/* filtering  genre value */}
                     <div>

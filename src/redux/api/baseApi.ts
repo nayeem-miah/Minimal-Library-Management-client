@@ -13,9 +13,16 @@ export const baseApi = createApi({
             query: (genre) => {
                 return genre ? `/books?filter=${genre}` : "/books";
             }
+        }),
+        addBook: builder.mutation({
+            query: (newBook) => ({
+                url: '/books',
+                method: "POST",
+                body: newBook
+            })
         })
     })
 });
 
 
-export const { useGetBooksQuery } = baseApi;
+export const { useGetBooksQuery, useAddBookMutation } = baseApi;
