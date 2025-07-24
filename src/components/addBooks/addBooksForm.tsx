@@ -1,19 +1,35 @@
-import { Button } from "@/components/ui/button"
-import {
-    Dialog,
-    DialogClose,
-    DialogContent,
-    DialogDescription,
-    DialogFooter,
-    DialogHeader,
-    DialogTitle,
-    DialogTrigger,
-} from "@/components/ui/dialog"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { CgAdd } from "react-icons/cg"
+import { CgAdd } from "react-icons/cg";
+import { Button } from "../ui/button";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "../ui/dialog";
+import { Form, FormControl, FormField, FormItem, FormLabel } from "../ui/form";
+import { Input } from "../ui/input";
+import { useForm, type FieldValues, type SubmitHandler } from "react-hook-form";
+import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger } from "../ui/select";
+import { SelectValue } from "@radix-ui/react-select";
+import { useAddBookMutation } from "@/redux/api/baseApi";
+import Loader from "../loader";
+
 
 export function AddBooksForm() {
+    const form = useForm();
+    const [addBooks, { isLoading, isError }] = useAddBookMutation()
+
+    // handle form submit
+    const handleOnSubmit: SubmitHandler<FieldValues> = async (data) => {
+        await addBooks(data)
+
+    }
+
+
+    if (isLoading) return <Loader />
+
+    if (isError) {
+        return (
+            <div className="flex items-center justify-center h-screen">
+                <h3 className="text-red-500 text-2xl">Error add book</h3>
+            </div>
+        )
+    }
     return (
         <Dialog>
             <form>
@@ -25,27 +41,89 @@ export function AddBooksForm() {
                 <DialogContent className="sm:max-w-[425px]">
                     <DialogHeader>
                         <DialogTitle>Add Books</DialogTitle>
-                        <DialogDescription>
-                            Make changes to your profile here. Click save when you&apos;re
-                            done.
-                        </DialogDescription>
                     </DialogHeader>
-                    <div className="grid gap-4">
-                        <div className="grid gap-3">
-                            <Label htmlFor="name-1">Name</Label>
-                            <Input id="name-1" name="name" defaultValue="Pedro Duarte" />
-                        </div>
-                        <div className="grid gap-3">
-                            <Label htmlFor="username-1">Username</Label>
-                            <Input id="username-1" name="username" defaultValue="@peduarte" />
-                        </div>
-                    </div>
-                    <DialogFooter>
-                        <DialogClose asChild>
-                            <Button variant="outline">Cancel</Button>
-                        </DialogClose>
-                        <Button type="submit">Save changes</Button>
-                    </DialogFooter>
+                    <Form {...form}>
+                        <form onSubmit={form.handleSubmit(handleOnSubmit)} className="space-y-8">
+                            <FormField
+                                control={form.control}
+                                name="title"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>title</FormLabel>
+                                        <FormControl>
+                                            <Input placeholder="book title" {...field} />
+                                        </FormControl>
+                                    </FormItem>
+                                )}
+                            />
+                            <FormField
+                                control={form.control}
+                                name="author"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>author</FormLabel>
+                                        <FormControl>
+                                            <Input placeholder="book author" {...field} />
+                                        </FormControl>
+                                    </FormItem>
+                                )}
+                            />
+                            <FormField
+                                control={form.control}
+                                name="description"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>description</FormLabel>
+                                        <FormControl>
+                                            <Input placeholder="book description" {...field} />
+                                        </FormControl>
+                                    </FormItem>
+                                )}
+                            />
+                            <FormField
+                                control={form.control}
+
+                                name="copies"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>copies</FormLabel>
+                                        <FormControl>
+                                            <Input placeholder="book copies"
+                                                type="number"
+                                                min={0}
+                                                {...field}
+                                            />
+                                        </FormControl>
+                                    </FormItem>
+                                )}
+                            />
+                            <FormField
+                                control={form.control}
+                                name="genre"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <Select onValueChange={field.onChange} defaultValue={field.value}>
+                                            <SelectTrigger className="w-[180px]">
+                                                <SelectValue placeholder="select genre books" />
+                                            </SelectTrigger>
+                                            <SelectContent>
+                                                <SelectGroup>
+                                                    <SelectLabel>genre</SelectLabel>
+                                                    <SelectItem value="FICTION">FICTION</SelectItem>
+                                                    <SelectItem value="NON_FICTION">NON_FICTION</SelectItem>
+                                                    <SelectItem value="SCIENCE">SCIENCE</SelectItem>
+                                                    <SelectItem value="HISTORY">HISTORY</SelectItem>
+                                                    <SelectItem value="BIOGRAPHY">BIOGRAPHY</SelectItem>
+                                                    <SelectItem value="FANTASY">FANTASY</SelectItem>
+                                                </SelectGroup>
+                                            </SelectContent>
+                                        </Select>
+                                    </FormItem>
+                                )}
+                            />
+                            <Button type="submit">Submit</Button>
+                        </form>
+                    </Form>
                 </DialogContent>
             </form>
         </Dialog>
