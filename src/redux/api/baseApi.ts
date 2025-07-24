@@ -10,7 +10,9 @@ export const baseApi = createApi({
     }),
     endpoints: (builder) => ({
         getBooks: builder.query({
-            query: () => "/books",
+            query: (genre) => {
+                return genre ? `/books?filter=${genre}` : "/books";
+            }
         })
     })
 });
