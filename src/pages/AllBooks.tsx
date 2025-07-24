@@ -12,7 +12,7 @@ import {
     SelectValue,
 } from "@/components/ui/select"
 import { useState } from "react";
-import Loader from "@/components/loader";
+import Loader from "@/components/Loader";
 
 
 

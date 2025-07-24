@@ -1,7 +1,8 @@
 
 import banner from "../../assets/addBanner.jpg";
+import AddBooksForm from "./addBooksForm";
 
-import { AddBooksForm } from "./addBooksForm";
+
 
 const AddBooksBanner = () => {
     return (
