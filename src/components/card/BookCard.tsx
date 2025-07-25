@@ -22,21 +22,38 @@ export function BookCard({ book }: BookCardProps) {
 
     // Function to handle book deletion
     const handleDelete = async (id: string) => {
-        try {
-            const res = await deleteBook(id);
-            if (res.data.success) {
-                toast.success(res.data.message, {
-                    position: "top-right",
-                    duration: 3000
-                });
-            }
-        } catch (error) {
-            console.error("Error deleting book:", error);
-            toast.error("Failed to delete book. Please try again.", {
-                position: "top-right",
-                duration: 3000
-            });
-        }
+        toast.warning('Are you sure you want to delete this book?', {
+            description: 'This action cannot be undone.',
+            action: {
+                label: 'Yes, Delete',
+                onClick: async () => {
+                    try {
+                        await deleteBook(id).unwrap();
+                        toast.success('✅ Book deleted successfully!', {
+                            position: "top-right",
+                            duration: 6000,
+                        });
+                    } catch {
+                        toast.error('❌ Failed to delete Book!', {
+                            position: "top-right",
+                            duration: 6000
+                        });
+                    }
+                },
+
+            },
+            cancel: {
+                label: 'Cancel',
+                onClick: () => {
+                    toast.info('Task deletion cancelled.', {
+                        position: "top-right",
+                        duration: 6000
+                    });
+                },
+            },
+            position: "top-right",
+            duration: 6000,
+        });
     }
 
     if (isLoading) return <Loader />
