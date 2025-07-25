@@ -16,3 +16,10 @@ export interface IBorrow {
 }
 
 
+export interface IBorrowSummary {
+    book: string;
+    isbn: string;
+    title: string;
+    totalQuantity: number;
+}
+

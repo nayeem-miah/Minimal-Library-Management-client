@@ -20,7 +20,12 @@ function AllBooks() {
     const [genre, setGenre] = useState("");
 
     // get all books from the database
-    const { data, isLoading, isError } = useGetBooksQuery(genre);
+    const { data, isLoading, isError } = useGetBooksQuery(genre, {
+        pollingInterval: 30000,
+        refetchOnFocus: true,
+        refetchOnMountOrArgChange: true,
+        refetchOnReconnect: true
+    });
     // console.log({ data, isLoading, isError });
 
     if (isLoading) return <Loader />

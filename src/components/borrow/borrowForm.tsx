@@ -53,7 +53,7 @@ const BorrowForm = ({ id }: ID) => {
                     position: "top-right"
                 })
             } else {
-                toast.error(`${res.error.data.error}`, {
+                toast.error(`${res.error.data.error} ✅`, {
                     position: "top-right",
                 })
             }
