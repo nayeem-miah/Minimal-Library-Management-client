@@ -8,11 +8,13 @@ export const baseApi = createApi({
         // baseUrl: "https://library-management-api-topaz.vercel.app/api",
         baseUrl: "http://localhost:5000/api",
     }),
+    tagTypes: ["Books"],
     endpoints: (builder) => ({
         getBooks: builder.query({
             query: (genre) => {
                 return genre ? `/books?filter=${genre}` : "/books";
-            }
+            },
+            providesTags: ["Books"]
         }),
         addBook: builder.mutation({
             query: (newBook) => ({
@@ -20,9 +22,16 @@ export const baseApi = createApi({
                 method: "POST",
                 body: newBook
             })
+        }),
+        deleteBook: builder.mutation({
+            query: (id) => ({
+                url: `/books/${id}`,
+                method: "DELETE"
+            }),
+            invalidatesTags: ["Books"]
         })
     })
 });
 
 
-export const { useGetBooksQuery, useAddBookMutation } = baseApi;
+export const { useGetBooksQuery, useAddBookMutation, useDeleteBookMutation } = baseApi;

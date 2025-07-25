@@ -7,14 +7,40 @@ import {
     CardHeader,
     CardTitle,
 } from "@/components/ui/card";
+import { useDeleteBookMutation } from "@/redux/api/baseApi";
 import type { IBook } from "@/types";
 import { Edit2, Trash2 } from "lucide-react";
+import Loader from "../Loader";
+import { toast } from "sonner";
 
 interface BookCardProps {
     book: IBook;
 }
 
 export function BookCard({ book }: BookCardProps) {
+    const [deleteBook, { isLoading }] = useDeleteBookMutation();
+
+    // Function to handle book deletion
+    const handleDelete = async (id: string) => {
+        try {
+            const res = await deleteBook(id);
+            if (res.data.success) {
+                toast.success(res.data.message, {
+                    position: "top-right",
+                    duration: 3000
+                });
+            }
+        } catch (error) {
+            console.error("Error deleting book:", error);
+            toast.error("Failed to delete book. Please try again.", {
+                position: "top-right",
+                duration: 3000
+            });
+        }
+    }
+
+    if (isLoading) return <Loader />
+
     return (
         <Card className="w-full max-w-sm shadow-lg border rounded-xl hover:shadow-xl transition">
             <CardHeader>
@@ -51,7 +77,7 @@ export function BookCard({ book }: BookCardProps) {
                     Edit
                 </Button>
 
-                <Button variant="destructive" className="flex items-center gap-1">
+                <Button onClick={() => handleDelete(book._id)} variant="destructive" className="flex items-center gap-1">
                     <Trash2 className="h-4 w-4" />
                     Delete
                 </Button>
