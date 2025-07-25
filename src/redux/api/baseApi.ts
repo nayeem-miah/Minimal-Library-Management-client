@@ -16,6 +16,7 @@ export const baseApi = createApi({
             },
             providesTags: ["Books"]
         }),
+
         addBook: builder.mutation({
             query: (newBook) => ({
                 url: '/books',
@@ -43,7 +44,15 @@ export const baseApi = createApi({
         getBorrowSummary: builder.query({
             query: () => "/borrow",
             providesTags: ["Borrow"]
+        }),
+
+        // optional books-recent
+        getRecentBook: builder.query({
+            query: () => "/recent-books",
+            providesTags: ["Books"]
         })
+
+
 
     })
 });
@@ -55,4 +64,5 @@ export const {
     useDeleteBookMutation,
     useBorrowBookMutation,
     useGetBorrowSummaryQuery,
+    useGetRecentBookQuery
 } = baseApi;

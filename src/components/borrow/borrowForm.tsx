@@ -36,8 +36,7 @@ interface ID {
 
 const BorrowForm = ({ id }: ID) => {
     const form = useForm();
-    const [borrowBook, { isLoading, data }] = useBorrowBookMutation();
-    console.log(data);
+    const [borrowBook, { isLoading, }] = useBorrowBookMutation();
 
     // handle form submit
     const handleOnSubmit: SubmitHandler<FieldValues> = async (data) => {
