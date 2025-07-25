@@ -8,11 +8,12 @@ import {
     CardTitle,
 } from "@/components/ui/card";
 import type { IBook } from "@/types";
-import { Edit2, Trash2 } from "lucide-react";
+import { Trash2 } from "lucide-react";
 import Loader from "../Loader";
 import { toast } from "sonner";
 import BorrowForm from "../borrow/borrowForm";
 import { useDeleteBookMutation } from "@/redux/api/baseApi";
+import UpdateBookForm from "../updateBook/updateBookForm";
 
 interface BookCardProps {
     book: IBook;
@@ -90,11 +91,8 @@ export function BookCard({ book }: BookCardProps) {
             </CardContent>
 
             <CardFooter className="flex flex-wrap justify-between items-center gap-2 px-4 pb-4">
-                <Button variant="outline" className="flex items-center gap-1">
-                    <Edit2 className="h-4 w-4" />
-                    Edit
-                </Button>
-
+                {/* update button */}
+                <UpdateBookForm id={book._id} />
                 <Button onClick={() => handleDelete(book._id)} variant="destructive" className="flex items-center gap-1">
                     <Trash2 className="h-4 w-4" />
                     Delete

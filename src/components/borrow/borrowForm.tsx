@@ -30,11 +30,11 @@ import { useBorrowBookMutation } from "@/redux/api/baseApi";
 import { toast } from "sonner";
 import Loader from "../Loader";
 
-interface ID {
+interface IdProps {
     id: string
 }
 
-const BorrowForm = ({ id }: ID) => {
+const BorrowForm = ({ id }: IdProps) => {
     const form = useForm();
     const [borrowBook, { isLoading, }] = useBorrowBookMutation();
 

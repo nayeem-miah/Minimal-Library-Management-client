@@ -1,4 +1,4 @@
-import { CgAdd } from "react-icons/cg";
+
 import { Button } from "../ui/button";
 import {
     Dialog,
@@ -30,43 +30,24 @@ import {
     SelectTrigger,
     SelectValue,
 } from "../ui/select";
-import { useAddBookMutation } from "@/redux/api/baseApi";
-import Loader from "../Loader";
-import { toast } from "sonner";
+import { Edit } from "lucide-react";
 
 
-const AddBooksForm = () => {
+interface IdProps {
+    id: string
+}
+
+
+const UpdateBookForm = ({ id }: IdProps) => {
     const form = useForm();
-    const [addBooks, { isLoading }] = useAddBookMutation();
 
     // handle form submit
     const handleOnSubmit: SubmitHandler<FieldValues> = async (data) => {
-        try {
-            const newBook = {
-                ...data,
-                available: data.copies > 0,
-                isbn: Math.floor(Math.random() * 1000000000).toString(),
-            };
-            const res = await addBooks(newBook).unwrap();
+        console.log(data);
 
-            if (res.success) {
-                toast.success(`${res.message} ✅`, {
-                    duration: 3000,
-                    position: "top-right",
-                });
-                form.reset();
-            }
-        } catch (error) {
-            console.error("Error adding book:", error);
-            toast.error(`$ something is wrong ❌`, {
-                duration: 3000,
-                position: "top-right",
-            });
-        }
         form.reset();
     };
 
-    if (isLoading) return <Loader />;
 
     return (
         <Dialog>
@@ -75,14 +56,14 @@ const AddBooksForm = () => {
                     variant="secondary"
                     className=" bg-pink-500 hover:bg-pink-600 text-white"
                 >
-                    <CgAdd className="h-4 w-4 mr-1" />
-                    Add Book
+                    <Edit className="h-3 w-2" />
+                    edit Book
                 </Button>
             </DialogTrigger>
 
             <DialogContent className="sm:max-w-[425px]">
                 <DialogHeader>
-                    <DialogTitle>Add Books</DialogTitle>
+                    <DialogTitle>Edit Book</DialogTitle>
                     <DialogDescription>
                     </DialogDescription>
                 </DialogHeader>
@@ -182,7 +163,7 @@ const AddBooksForm = () => {
                         />
 
                         <Button type="submit" className="w-full bg-pink-500 hover:bg-pink-600 text-white">
-                            add Book
+                            update Book
                         </Button>
                     </form>
                 </Form>
@@ -191,4 +172,4 @@ const AddBooksForm = () => {
     );
 }
 
-export default AddBooksForm;
+export default UpdateBookForm;
