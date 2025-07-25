@@ -12,6 +12,7 @@ import type { IBook } from "@/types";
 import { Edit2, Trash2 } from "lucide-react";
 import Loader from "../Loader";
 import { toast } from "sonner";
+import BorrowForm from "../borrow/borrowForm";
 
 interface BookCardProps {
     book: IBook;
@@ -99,9 +100,8 @@ export function BookCard({ book }: BookCardProps) {
                     Delete
                 </Button>
 
-                <Button disabled={!book.available} className="flex-grow">
-                    Borrow Book
-                </Button>
+                {/* borrow button */}
+                <BorrowForm id={book._id} />
             </CardFooter>
         </Card>
     );

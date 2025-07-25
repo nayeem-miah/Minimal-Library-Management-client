@@ -84,7 +84,6 @@ const AddBooksForm = () => {
                 <DialogHeader>
                     <DialogTitle>Add Books</DialogTitle>
                     <DialogDescription>
-                        Fill out the form below to add a new book to the system.
                     </DialogDescription>
                 </DialogHeader>
 
