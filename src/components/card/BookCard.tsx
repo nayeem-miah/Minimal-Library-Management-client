@@ -7,12 +7,12 @@ import {
     CardHeader,
     CardTitle,
 } from "@/components/ui/card";
-import { useDeleteBookMutation } from "@/redux/api/baseApi";
 import type { IBook } from "@/types";
 import { Edit2, Trash2 } from "lucide-react";
 import Loader from "../Loader";
 import { toast } from "sonner";
 import BorrowForm from "../borrow/borrowForm";
+import { useDeleteBookMutation } from "@/redux/api/baseApi";
 
 interface BookCardProps {
     book: IBook;

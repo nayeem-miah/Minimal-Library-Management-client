@@ -26,6 +26,9 @@ import { cn } from "@/lib/utils";
 import { format } from "date-fns"
 import { CalendarIcon } from "lucide-react";
 import { Calendar } from "../ui/calendar";
+import { useBorrowBookMutation } from "@/redux/api/baseApi";
+import { toast } from "sonner";
+import Loader from "../Loader";
 
 interface ID {
     id: string
@@ -33,19 +36,38 @@ interface ID {
 
 const BorrowForm = ({ id }: ID) => {
     const form = useForm();
-
+    const [borrowBook, { isLoading, data }] = useBorrowBookMutation();
+    console.log(data);
 
     // handle form submit
     const handleOnSubmit: SubmitHandler<FieldValues> = async (data) => {
-        const newData = {
-            book: id,
-            quantity: data.quantity,
-            dueDate: data.dueDate,
+        try {
+            const newData = {
+                book: id,
+                quantity: data.quantity,
+                dueDate: data.dueDate,
+            }
+            const res = await borrowBook(newData);
+            if (res.data) {
+                toast.success(`borrow book success`, {
+                    position: "top-right"
+                })
+            } else {
+                toast.error(`${res.error.data.error}`, {
+                    position: "top-right",
+                })
+            }
+            form.reset();
+        } catch (error) {
+            console.error("Error borrowing book:", error);
+            toast.error('❌ Failed to borrow book!', {
+                position: "top-right",
+            }
+            )
         }
-        console.log(newData);
     }
 
-    // if (isLoading) return <Loader />;
+    if (isLoading) return <Loader />;
 
     return (
         <Dialog>
