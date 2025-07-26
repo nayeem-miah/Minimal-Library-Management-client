@@ -89,7 +89,7 @@ export function BookCard({ book }: BookCardProps) {
     if (isLoading) return <Loader />
 
     return (
-        <Card className="w-full max-w-sm shadow-lg border rounded-xl hover:shadow-xl transition">
+        <Card className="w-full  shadow-lg border rounded-xl hover:shadow-xl transition">
             <CardHeader>
                 <CardTitle className="text-xl font-bold">{book.title}</CardTitle>
                 <CardDescription className="text-sm text-muted-foreground">
