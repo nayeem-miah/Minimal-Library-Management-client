@@ -80,10 +80,10 @@ const UpdateBookForm = ({ id }: IdProps) => {
         <Dialog>
             <DialogTrigger asChild>
                 <Button
-                    variant="secondary"
-                    className=" bg-pink-500 hover:bg-pink-600 text-white"
+                    variant="outline"
+                    className="border-pink-500 hover:border-pink-700 border-2"
                 >
-                    <Edit className="h-3 w-2" />
+                    <Edit className="h-3 w-2 " />
                     edit Book
                 </Button>
             </DialogTrigger>
@@ -200,7 +200,7 @@ const UpdateBookForm = ({ id }: IdProps) => {
                             )}
                         />
 
-                        <Button type="submit" className="w-full bg-pink-500 hover:bg-pink-600 text-white">
+                        <Button variant="outline" type="submit" className="w-full border-pink-500 hover:border-pink-700 border-2">
                             update Book
                         </Button>
                     </form>

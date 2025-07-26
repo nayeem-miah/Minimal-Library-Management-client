@@ -63,7 +63,7 @@ const AddReviewUser = () => {
     return (
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
-                <Button variant="outline">📋 Write a Review</Button>
+                <Button className="border-pink-500 hover:border-pink-700 border-2" variant="outline">📋 Write a Review</Button>
             </DialogTrigger>
 
             <DialogContent className="max-w-xl">
@@ -133,7 +133,7 @@ const AddReviewUser = () => {
                             )}
                         />
 
-                        <Button type="submit" className="w-full">
+                        <Button type="submit" variant={"outline"} className="w-full border-pink-500 hover:border-pink-700 border-2">
                             Submit Review
                         </Button>
                     </form>

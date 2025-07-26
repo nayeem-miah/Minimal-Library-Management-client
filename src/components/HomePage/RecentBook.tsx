@@ -36,7 +36,7 @@ function RecentBook() {
 
             <div className="flex justify-center mt-6">
                 <Link to={"/all-books"}>
-                    <Button className="bg-pink-500 hover:bg-pink-600">show all Books</Button>
+                    <Button variant={"outline"} className=" border-pink-600 border-2">show all Books</Button>
                 </Link>
             </div>
         </div>

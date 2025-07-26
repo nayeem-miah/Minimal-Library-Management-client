@@ -24,7 +24,7 @@ export function BorrowTable() {
 
     if (isLoading) return <Loader />
     return (
-        <Table className="mb-6">
+        <Table className="mb-2">
             <TableHeader>
                 <TableRow>
                     <TableHead className="">title</TableHead>

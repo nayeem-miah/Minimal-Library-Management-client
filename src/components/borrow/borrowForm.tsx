@@ -48,11 +48,11 @@ const BorrowForm = ({ id }: IdProps) => {
             }
             const res = await borrowBook(newData);
             if (res.data) {
-                toast.success(`borrow book success`, {
+                toast.success(`borrow book success ✅`, {
                     position: "top-right"
                 })
             } else {
-                toast.error(`${res.error.data.error} ✅`, {
+                toast.error(`${res.error.data.error} ❌`, {
                     position: "top-right",
                 })
             }
@@ -72,8 +72,8 @@ const BorrowForm = ({ id }: IdProps) => {
         <Dialog>
             <DialogTrigger asChild>
                 <Button
-                    variant="secondary"
-                    className=" bg-pink-500 hover:bg-pink-600 text-white flex-grow"
+                    variant="outline"
+                    className="border-pink-500 flex-grow hover:border-pink-700 border"
                 >
                     <CgAdd className="h-4 w-4 mr-1" />
                     Borrow Book
@@ -153,7 +153,7 @@ const BorrowForm = ({ id }: IdProps) => {
                         />
 
 
-                        <Button type="submit" className="w-full bg-pink-500 hover:bg-pink-600 text-white">
+                        <Button variant="outline" type="submit" className="w-full  border-pink-500 hover:border-pink-700 border-2">
                             Submit
                         </Button>
                     </form>

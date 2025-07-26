@@ -73,7 +73,7 @@ const AddBooksForm = () => {
             <DialogTrigger asChild>
                 <Button
                     variant="secondary"
-                    className=" bg-pink-500 hover:bg-pink-600 text-white"
+                    className=" border-pink-500 bg-pink-500 hover:bg-pink-600 hover:border-pink-700 border-2"
                 >
                     <CgAdd className="h-4 w-4 mr-1" />
                     Add Book
@@ -181,7 +181,7 @@ const AddBooksForm = () => {
                             )}
                         />
 
-                        <Button type="submit" className="w-full bg-pink-500 hover:bg-pink-600 text-white">
+                        <Button type="submit" variant={"outline"} className="w-full border-pink-500 hover:border-pink-700 border-2">
                             add Book
                         </Button>
                     </form>

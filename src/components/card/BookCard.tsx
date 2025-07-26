@@ -13,7 +13,8 @@ import Loader from "../Loader";
 import { toast } from "sonner";
 import BorrowForm from "../borrow/borrowForm";
 import { useDeleteBookMutation } from "@/redux/api/baseApi";
-import UpdateBookForm from "../updateBook/updateBookForm";
+import UpdateBookForm from "../updateBook/UpdateBookForm";
+
 
 interface BookCardProps {
     book: IBook;
@@ -32,31 +33,58 @@ export function BookCard({ book }: BookCardProps) {
                     try {
                         await deleteBook(id).unwrap();
                         toast.success('✅ Book deleted successfully!', {
-                            position: "top-right",
                             duration: 6000,
+                            position: 'top-right',
+                            style: {
+                                top: '50%',
+                                left: '50%',
+                                transform: 'translate(-50%, -50%)',
+                                width: '350px',
+                                height: 'auto',
+                            },
                         });
                     } catch {
                         toast.error('❌ Failed to delete Book!', {
-                            position: "top-right",
-                            duration: 6000
+                            duration: 6000,
+                            style: {
+                                top: '50%',
+                                left: '50%',
+                                transform: 'translate(-50%, -50%)',
+                                width: '350px',
+                                height: 'auto',
+                            },
                         });
                     }
                 },
-
             },
             cancel: {
                 label: 'Cancel',
                 onClick: () => {
                     toast.info('Task deletion cancelled.', {
-                        position: "top-right",
-                        duration: 6000
+                        duration: 6000,
+                        position: 'top-right',
+                        style: {
+                            top: '50%',
+                            left: '50%',
+                            transform: 'translate(-50%, -50%)',
+                            width: '350px',
+                            height: 'auto',
+                        },
                     });
                 },
             },
-            position: "top-right",
             duration: 6000,
+            style: {
+                top: '50%',
+                left: '50%',
+                transform: 'translate(-50%, -50%)',
+                width: '350px',
+                height: 'auto',
+                position: 'fixed',
+            },
         });
-    }
+    };
+
 
     if (isLoading) return <Loader />
 
