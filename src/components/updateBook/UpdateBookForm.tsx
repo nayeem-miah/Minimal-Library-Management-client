@@ -57,7 +57,7 @@ const UpdateBookForm = ({ id }: IdProps) => {
 
     // handle form submit
     const handleOnSubmit: SubmitHandler<FieldValues> = async (formData) => {
-        const res = await updateBook({ id, formData });
+        const res = await updateBook({ id, formData }).unwrap();
         try {
             if (res.data.success) {
                 toast.success(res.data.message, {

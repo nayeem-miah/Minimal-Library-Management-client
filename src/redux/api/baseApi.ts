@@ -8,7 +8,7 @@ export const baseApi = createApi({
         // baseUrl: "https://library-management-api-topaz.vercel.app/api",
         baseUrl: "http://localhost:5000/api",
     }),
-    tagTypes: ["Books", "Borrow"],
+    tagTypes: ["Books", "Borrow", "Reviews"],
     endpoints: (builder) => ({
         getBooks: builder.query({
             query: (genre) => {
@@ -66,10 +66,21 @@ export const baseApi = createApi({
         getRecentBook: builder.query({
             query: () => "/recent-books",
             providesTags: ["Books"]
+        }),
+        // use review /reviews
+        addReview: builder.mutation({
+            query: (newReview) => ({
+                url: "/reviews",
+                method: "POST",
+                body: newReview
+            }),
+            invalidatesTags: ["Reviews"]
+
+        }),
+        getReviews: builder.query({
+            query: () => "/reviews",
+            providesTags: ["Reviews"]
         })
-
-
-
     })
 });
 
@@ -83,4 +94,6 @@ export const {
     useGetRecentBookQuery,
     useUpdateBookMutation,
     useGetSingleBookQuery,
+    useAddReviewMutation,
+    useGetReviewsQuery
 } = baseApi;
