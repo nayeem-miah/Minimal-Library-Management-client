@@ -24,6 +24,7 @@ export interface IBorrowSummary {
 }
 
 export interface IUerReview {
+    _id: string;
     name: string;
     comment: string;
     rating: number;

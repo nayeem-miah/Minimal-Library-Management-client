@@ -1,13 +1,15 @@
 import Banner from "@/components/HomePage/Banner"
 import RecentBook from "@/components/HomePage/RecentBook"
-import UserReviews from "@/components/HomePage/UserReview"
+import ShowUserReview from "@/components/HomePage/ShowUserReview"
 
 function Home() {
     return (
         <div >
             <Banner />
             <RecentBook />
-            <UserReviews />
+            <div className="">
+                <ShowUserReview />
+            </div>
         </div>
     )
 }

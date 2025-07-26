@@ -24,9 +24,11 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
+import { useState } from "react";
 
-const AddReviewModal = () => {
+const AddReviewUser = () => {
     const form = useForm();
+    const [open, setOpen] = useState(false);
     const { handleSubmit, control } = form;
     const [addReview] = useAddReviewMutation();
 
@@ -38,23 +40,28 @@ const AddReviewModal = () => {
                     position: "top-right",
                     duration: 3000,
                 });
+                setOpen(false);
+                form.reset();
             } else {
                 toast.error("❌ Failed to submit review.", {
                     position: "top-right",
                     duration: 3000,
                 });
+                setOpen(false);
+                form.reset();
             }
         } catch {
             toast.error("❌ Failed to submit review.", {
                 position: "top-right",
                 duration: 3000,
             });
+            setOpen(false);
+            form.reset();
         }
-        form.reset();
     };
 
     return (
-        <Dialog>
+        <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
                 <Button variant="outline">📋 Write a Review</Button>
             </DialogTrigger>
@@ -108,9 +115,9 @@ const AddReviewModal = () => {
                             render={({ field }) => (
                                 <FormItem>
                                     <FormLabel>Rating</FormLabel>
-                                    <Select onValueChange={field.onChange}>
+                                    <Select onValueChange={field.onChange} >
                                         <FormControl>
-                                            <SelectTrigger>
+                                            <SelectTrigger className="w-full">
                                                 <SelectValue placeholder="Rate our system" />
                                             </SelectTrigger>
                                         </FormControl>
@@ -136,4 +143,4 @@ const AddReviewModal = () => {
     );
 };
 
-export default AddReviewModal;
+export default AddReviewUser;
