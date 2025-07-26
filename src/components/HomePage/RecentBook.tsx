@@ -12,7 +12,8 @@ function RecentBook() {
         refetchOnReconnect: true,
         refetchOnMountOrArgChange: true
     })
-    // console.log(data);
+
+    console.log(data);
     if (isLoading) return <Loader />
     return (
         <div>
@@ -23,7 +24,7 @@ function RecentBook() {
                         <BookCard book={book} key={book._id} />)
                     )}
                 </div>
-                {data && data.data.length === 0 && (
+                {data.data.length === 0 && (
                     <div className="flex flex-col items-center justify-center text-center py-20">
                         <h3 className="text-xl text-red-500 font-semibold mb-2">No books available</h3>
                         <p className="text-gray-500 mb-4">There are currently no books in the library. </p>

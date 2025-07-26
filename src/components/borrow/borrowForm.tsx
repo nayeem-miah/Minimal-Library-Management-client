@@ -46,7 +46,7 @@ const BorrowForm = ({ id }: IdProps) => {
                 quantity: data.quantity,
                 dueDate: data.dueDate,
             }
-            const res = await borrowBook(newData);
+            const res = await borrowBook(newData).unwrap();
             if (res.data) {
                 toast.success(`borrow book success ✅`, {
                     position: "top-right"
