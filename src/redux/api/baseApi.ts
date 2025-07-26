@@ -41,13 +41,19 @@ export const baseApi = createApi({
             }),
             invalidatesTags: ["Books"]
         }),
+        getSingleBook: builder.query({
+            query: (id) => `/books/${id}`
+        }),
         // update book
         updateBook: builder.mutation({
-            query: ({ id, data }) => ({
-                url: `/books/${id}`,
-                method: "PATCH",
-                body: data
-            }),
+            query: ({ id, formData }) => {
+                // console.log(formData, id);
+                return {
+                    url: `/books/${id}`,
+                    method: "PATCH",
+                    body: formData
+                };
+            },
             invalidatesTags: ["Books"]
         }),
 
@@ -74,5 +80,7 @@ export const {
     useDeleteBookMutation,
     useBorrowBookMutation,
     useGetBorrowSummaryQuery,
-    useGetRecentBookQuery
+    useGetRecentBookQuery,
+    useUpdateBookMutation,
+    useGetSingleBookQuery,
 } = baseApi;

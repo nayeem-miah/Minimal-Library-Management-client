@@ -31,6 +31,9 @@ import {
     SelectValue,
 } from "../ui/select";
 import { Edit } from "lucide-react";
+import { useGetSingleBookQuery, useUpdateBookMutation } from "@/redux/api/baseApi";
+import Loader from "../Loader";
+import { toast } from "sonner";
 
 
 interface IdProps {
@@ -41,14 +44,38 @@ interface IdProps {
 const UpdateBookForm = ({ id }: IdProps) => {
     const form = useForm();
 
-    // handle form submit
-    const handleOnSubmit: SubmitHandler<FieldValues> = async (data) => {
-        console.log(data);
+    const { data } = useGetSingleBookQuery(id, {
+        pollingInterval: 50000,
+        refetchOnFocus: true,
+        refetchOnMountOrArgChange: true,
+        refetchOnReconnect: true
+    });
 
+    const [updateBook, {
+        isLoading
+    }] = useUpdateBookMutation();
+
+    // handle form submit
+    const handleOnSubmit: SubmitHandler<FieldValues> = async (formData) => {
+        const res = await updateBook({ id, formData });
+        try {
+            if (res.data.success) {
+                toast.success(res.data.message, {
+                    position: "top-right",
+                    duration: 3000,
+                });
+            }
+        } catch (error) {
+            console.error("Error updating book:", error);
+            toast.error(res.data.message || "Failed to update book", {
+                position: "top-right",
+                duration: 3000,
+            });
+        }
         form.reset();
     };
 
-
+    if (isLoading) return <Loader />
     return (
         <Dialog>
             <DialogTrigger asChild>
@@ -80,7 +107,9 @@ const UpdateBookForm = ({ id }: IdProps) => {
                                 <FormItem>
                                     <FormLabel>Title</FormLabel>
                                     <FormControl>
-                                        <Input placeholder="Book title" {...field}
+                                        <Input placeholder="Book title"
+                                            {...field}
+                                            defaultValue={data?.data?.title}
                                             required={true} />
                                     </FormControl>
                                 </FormItem>
@@ -94,7 +123,10 @@ const UpdateBookForm = ({ id }: IdProps) => {
                                 <FormItem>
                                     <FormLabel>Author</FormLabel>
                                     <FormControl>
-                                        <Input placeholder="Book author" {...field} required={true} />
+                                        <Input placeholder="Book author"
+                                            {...field}
+                                            required={true}
+                                            defaultValue={data?.data?.author} />
                                     </FormControl>
                                 </FormItem>
                             )}
@@ -107,7 +139,10 @@ const UpdateBookForm = ({ id }: IdProps) => {
                                 <FormItem>
                                     <FormLabel>Description</FormLabel>
                                     <FormControl>
-                                        <Input placeholder="Book description" {...field} required={true} />
+                                        <Input placeholder="Book description" {...field}
+                                            required={true}
+                                            defaultValue={data?.data?.description}
+                                        />
                                     </FormControl>
                                 </FormItem>
                             )}
@@ -124,7 +159,9 @@ const UpdateBookForm = ({ id }: IdProps) => {
                                             placeholder="Book copies"
                                             type="number"
                                             min={0}
-                                            {...field} required={true}
+                                            {...field}
+                                            required={true}
+                                            defaultValue={data?.data?.copies}
                                         />
                                     </FormControl>
                                 </FormItem>
@@ -140,14 +177,15 @@ const UpdateBookForm = ({ id }: IdProps) => {
                                     <FormControl>
                                         <Select
                                             onValueChange={field.onChange}
-                                            defaultValue={field.value}
+                                            defaultValue={data?.data?.genre}
                                         >
                                             <SelectTrigger className="w-full">
-                                                <SelectValue placeholder="Select genre" />
+                                                <SelectValue
+                                                    placeholder="Select genre" />
                                             </SelectTrigger>
                                             <SelectContent>
                                                 <SelectGroup>
-                                                    <SelectLabel>Genres</SelectLabel>
+                                                    <SelectLabel >Genres</SelectLabel>
                                                     <SelectItem value="FICTION">FICTION</SelectItem>
                                                     <SelectItem value="NON_FICTION">NON_FICTION</SelectItem>
                                                     <SelectItem value="SCIENCE">SCIENCE</SelectItem>
