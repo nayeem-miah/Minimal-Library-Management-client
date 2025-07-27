@@ -63,7 +63,9 @@ const BorrowForm = ({ id }: IdProps) => {
                 position: "top-right",
             }
             )
+            form.reset();
         }
+
     }
 
     if (isLoading) return <Loader />;

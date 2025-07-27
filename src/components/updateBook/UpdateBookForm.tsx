@@ -56,7 +56,11 @@ const UpdateBookForm = ({ id }: IdProps) => {
     }] = useUpdateBookMutation();
 
     // handle form submit
-    const handleOnSubmit: SubmitHandler<FieldValues> = async (formData) => {
+    const handleOnSubmit: SubmitHandler<FieldValues> = async (data) => {
+        const formData = {
+            ...data,
+            available: data.copies > 0
+        }
         const res = await updateBook({ id, formData }).unwrap();
         try {
             if (res.data.success) {
