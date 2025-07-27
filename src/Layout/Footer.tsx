@@ -7,7 +7,7 @@ const Footer = () => {
         <footer className="bg-white dark:bg-black shadow border-t rounded-xl w-full p-2 relative">
 
             <div
-                className="w-full flex items-center justify-center pt-[30px] flex-col gap-[20px] pb-[40px]">
+                className="w-full flex items-center justify-center pt-[30px] flex-col gap-[20px] pb-[40px] px-2">
                 <h3 className="text-2xl font-bold text-pink-600">Book <span className="dark:text-white text-black ">library</span></h3>
 
                 <p className="text-[0.9rem] text-center">Book Library is a platform that connects readers with a vast collection of books. </p>
